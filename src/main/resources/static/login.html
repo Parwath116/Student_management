@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System | Administrator Login</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="brand" aria-label="Student Management System Homepage">
+        <div class="brand-icon">🎓</div>
+        <span>SMS Portal</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Dashboard</a></li>
+          <li><a href="student-form.html" class="nav-link">New Student</a></li>
+          <li><a href="faq.html" class="nav-link">FAQ & Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="themeToggleBtn" class="btn-icon" aria-label="Toggle dark mode" title="Toggle theme (Press 'd')">
+          🌙
+        </button>
+
+        <button class="mobile-nav-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" style="display: flex; align-items: center; justify-content: center; min-height: calc(80vh - 120px);">
+    <div class="card" style="width: 100%; max-width: 440px; padding: 2rem;">
+      
+      <div style="text-align: center; margin-bottom: 1.75rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔐</div>
+        <h1 class="page-title" style="font-size: 1.5rem;">Admin Sign In</h1>
+        <p class="page-subtitle">Enter your administrative credentials to manage students.</p>
+      </div>
+
+      <div id="loginAlert" role="alert" style="display: none; padding: 0.75rem 1rem; border-radius: var(--radius-md); background-color: var(--danger-subtle); color: var(--danger-text); font-size: 0.875rem; margin-bottom: 1.25rem;">
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label for="username" class="form-label required">Username</label>
+          <input 
+            type="text" 
+            id="username" 
+            class="input" 
+            placeholder="admin" 
+            autocomplete="username" 
+            required 
+            autofocus
+          >
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="password" class="form-label required">Password</label>
+          <div class="password-field-wrapper">
+            <input 
+              type="password" 
+              id="password" 
+              class="input" 
+              placeholder="••••••••" 
+              autocomplete="current-password" 
+              required
+            >
+            <button 
+              type="button" 
+              id="passwordToggleBtn" 
+              class="password-toggle-btn" 
+              aria-label="Show password" 
+              aria-pressed="false"
+              title="Toggle password visibility"
+            >
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="loginSubmitBtn" style="width: 100%; padding: 0.65rem;">
+          Sign In
+        </button>
+      </form>
+
+      <!-- Quick Demo Credentials Box -->
+      <div style="margin-top: 1.75rem; padding: 0.875rem; background-color: var(--bg-muted); border-radius: var(--radius-md); border: 1px dashed var(--border-color); font-size: 0.8125rem;">
+        <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">Default Local Credentials:</div>
+        <div style="color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center; margin-top: 0.35rem;">
+          <span>Username: <code>admin</code></span>
+          <span>Password: <code>admin123</code></span>
+          <button type="button" class="btn btn-secondary btn-sm" id="fillDemoCredsBtn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Quick Fill</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <footer class="footer">
+    <p>&copy; 2026 Student Management System. Built with Spring Boot 3 &amp; Vanilla JavaScript.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

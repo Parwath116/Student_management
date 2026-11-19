@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System | Frequently Asked Questions</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="brand" aria-label="Student Management System Homepage">
+        <div class="brand-icon">🎓</div>
+        <span>SMS Portal</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Dashboard</a></li>
+          <li><a href="student-form.html" class="nav-link">New Student</a></li>
+          <li><a href="faq.html" class="nav-link active">FAQ & Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="themeToggleBtn" class="btn-icon" aria-label="Toggle dark mode" title="Toggle theme (Press 'd')">
+          🌙
+        </button>
+
+        <div id="authNavContainer">
+          <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+        </div>
+
+        <button class="mobile-nav-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div style="max-width: 820px; margin: 0 auto;">
+      
+      <div class="page-header" style="text-align: center; justify-content: center; margin-bottom: 2.5rem;">
+        <div>
+          <h1 class="page-title" style="font-size: 2.25rem;">Frequently Asked Questions</h1>
+          <p class="page-subtitle" style="font-size: 1.05rem;">Everything you need to know about using the Student Management System.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion (8 items, one open at a time, keyboard accessible) -->
+      <section class="accordion" aria-label="System Frequently Asked Questions">
+        
+        <div class="accordion-item active">
+          <button class="accordion-header" aria-expanded="true" id="faq-header-1" aria-controls="faq-body-1">
+            <span>1. What credentials are required to add or edit student records?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-1" role="region" aria-labelledby="faq-header-1" style="max-height: 200px;">
+            <p>Administrative authentication is required for all write and update operations across <code>/api/v1/students/**</code>. By default, the system provisions an administrator user with the username <code>admin</code> and password configured via the <code>ADMIN_PASSWORD</code> environment variable (default: <code>admin123</code>). You can log in via the <a href="login.html">Login page</a> or pass standard HTTP Basic credentials in API headers.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" id="faq-header-2" aria-controls="faq-body-2">
+            <span>2. What format and uniqueness rules are enforced for students?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-2" role="region" aria-labelledby="faq-header-2">
+            <p>Every student record requires a unique <strong>Roll Number</strong> and unique <strong>Email Address</strong>. Phone numbers, if supplied, must be exactly 10 digits (e.g. <code>9876543210</code>). The <strong>Year of Study</strong> must be between 1 and 4, and the <strong>Date of Birth</strong> must be a past date. Duplicate roll numbers or emails immediately trigger a <code>409 Conflict</code> error with clear feedback.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" id="faq-header-3" aria-controls="faq-body-3">
+            <span>3. How does the live search and filtering mechanism work?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-3" role="region" aria-labelledby="faq-header-3">
+            <p>The search bar on the Dashboard communicates directly with <code>/api/v1/students/search</code>. Keystrokes are debounced by 350ms to minimize network requests. It performs a case-insensitive partial match across first names and last names, and seamlessly combines with Department and Year of Study dropdown filters while preserving pagination.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" id="faq-header-4" aria-controls="faq-body-4">
+            <span>4. Which keyboard shortcuts are supported for rapid navigation?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-4" role="region" aria-labelledby="faq-header-4">
+            <p>You can use the following power shortcuts:
+              <br>• <kbd>/</kbd> – Instantly focus the student search bar.
+              <br>• <kbd>n</kbd> – Open the New Student enrollment modal.
+              <br>• <kbd>d</kbd> – Toggle between Light and Dark mode.
+              <br>• <kbd>?</kbd> – Show the Keyboard Shortcuts help dialog.
+              <br>• <kbd>Esc</kbd> – Dismiss any open modal dialog or mobile menu.
+              <br>Shortcuts are automatically bypassed while typing inside text fields.
+            </p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" id="faq-header-5" aria-controls="faq-body-5">
+            <span>5. How do I toggle between Dark Mode and Light Mode?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-5" role="region" aria-labelledby="faq-header-5">
+            <p>Click the 🌙 / ☀️ icon in the navigation bar or press the <kbd>d</kbd> key anywhere on the page. The system automatically detects your operating system's <code>prefers-color-scheme</code> on first load and persists your manual selection in <code>localStorage</code> for future visits.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" id="faq-header-6" aria-controls="faq-body-6">
+            <span>6. How do I run the full application with Docker Compose?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-6" role="region" aria-labelledby="faq-header-6">
+            <p>Run <code>docker compose up --build</code> in the repository root. This orchestrates two isolated services: a production <code>mysql:8.0</code> database with data volumes and healthchecks, and the multi-stage packaged <code>sms-backend</code> container running Eclipse Temurin 21 JRE as a secure non-root user on port <code>8081</code>.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" id="faq-header-7" aria-controls="faq-body-7">
+            <span>7. How can third-party clients or cURL interact with the REST API?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-7" role="region" aria-labelledby="faq-header-7">
+            <p>Every student endpoint resides under <code>/api/v1/students</code>. Use standard HTTP Basic authentication headers: <code>-u admin:admin123</code>. The API provides predictable status codes (201, 200, 204, 400, 404, 409) and a standardized JSON ErrorResponse envelope containing timestamps, status, error details, and per-field validation error maps.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item" id="privacy">
+          <button class="accordion-header" aria-expanded="false" id="faq-header-8" aria-controls="faq-body-8">
+            <span>8. What is the Privacy Note regarding cookies and data storage?</span>
+            <span class="accordion-icon">▼</span>
+          </button>
+          <div class="accordion-body" id="faq-body-8" role="region" aria-labelledby="faq-header-8">
+            <p>This application uses minimal browser storage solely for functional operation: <code>sms_theme</code> (preserves dark/light appearance), <code>sms_cookie_consent</code> (stores your cookie decision), and secure session tokens for authenticated administrators. No personal data is tracked or transmitted to external advertisers or third parties.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Help Callout -->
+      <div style="margin-top: 2.5rem; text-align: center; padding: 2rem; background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-lg);">
+        <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Still need assistance?</h2>
+        <p style="color: var(--text-muted); font-size: 0.9375rem; margin-bottom: 1.25rem;">
+          Refer to the official API Postman Collection in <code>/docs</code> or consult the project README.
+        </p>
+        <a href="index.html" class="btn btn-primary">Return to Dashboard</a>
+      </div>
+
+    </div>
+  </main>
+
+  <button class="back-to-top" id="backToTopBtn" aria-label="Scroll back to top">↑</button>
+
+  <footer class="footer">
+    <p>&copy; 2026 Student Management System. Built with Spring Boot 3 &amp; Vanilla JavaScript.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

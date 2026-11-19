@@ -1,0 +1,54 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: sms-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: studentdb
+      MYSQL_USER: smsuser
+      MYSQL_PASSWORD: smspassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -prootpassword || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - sms-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sms-backend:latest
+    container_name: sms-app
+    restart: unless-stopped
+    ports:
+      - "8082:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: studentdb
+      DB_USER: smsuser
+      DB_PASSWORD: smspassword
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin123
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - sms-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  sms-network:
+    driver: bridge

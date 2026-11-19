@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Production-ready Student Management System - Dashboard and Student Directory">
+  <title>Student Management System | Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="brand" aria-label="Student Management System Homepage">
+        <div class="brand-icon">🎓</div>
+        <span>SMS Portal</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link active">Dashboard</a></li>
+          <li><a href="student-form.html" class="nav-link">New Student</a></li>
+          <li><a href="faq.html" class="nav-link">FAQ & Help</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <button id="themeToggleBtn" class="btn-icon" aria-label="Toggle dark mode" title="Toggle theme (Press 'd')">
+          🌙
+        </button>
+
+        <button id="shortcutsBtn" class="btn-icon" aria-label="View keyboard shortcuts" title="Keyboard shortcuts (Press '?')" onclick="document.getElementById('shortcutsModal').classList.add('open')">
+          ⌨️
+        </button>
+
+        <div id="authNavContainer">
+          <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+        </div>
+
+        <button class="mobile-nav-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Student Records</h1>
+        <p class="page-subtitle">Manage, search, and monitor student academic profiles and enrollments.</p>
+      </div>
+      <div>
+        <button id="addStudentBtn" class="btn btn-primary">
+          <span>+</span> Add Student
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Stats Cards -->
+    <section class="stats-grid" aria-label="Summary Statistics">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div>
+          <div class="stat-label">Total Students</div>
+          <div class="stat-value" id="statTotalStudents">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🏛️</div>
+        <div>
+          <div class="stat-label">Departments</div>
+          <div class="stat-value" id="statTotalDepartments">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div>
+          <div class="stat-label">Avg. Year of Study</div>
+          <div class="stat-value" id="statAvgYear">0.0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div>
+          <div class="stat-label">API Health</div>
+          <div class="stat-value" style="color: var(--success); font-size: 1.25rem;">ONLINE</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Table Card -->
+    <div class="card">
+      
+      <!-- Toolbar & Filters -->
+      <div class="toolbar">
+        <div class="toolbar-search">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="search" 
+              id="searchInput" 
+              class="input search-input" 
+              placeholder="Search by name, roll, email..." 
+              aria-label="Search students"
+            >
+            <span class="search-kbd" title="Press '/' to search">/</span>
+          </div>
+
+          <div class="toolbar-filters">
+            <select id="deptFilter" class="select" aria-label="Filter by department">
+              <option value="">All Departments</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Business Administration">Business Administration</option>
+            </select>
+
+            <select id="yearFilter" class="select" aria-label="Filter by year of study">
+              <option value="">All Years</option>
+              <option value="1">Year 1</option>
+              <option value="2">Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 0.8125rem; color: var(--text-muted);">Rows:</span>
+          <select id="pageSizeSelect" class="select" style="width: auto; padding-right: 1.5rem;" aria-label="Rows per page">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table" aria-label="Students Table">
+          <thead>
+            <tr>
+              <th class="sortable" data-sort="rollNumber">Roll No. <span class="sort-indicator">↕</span></th>
+              <th class="sortable" data-sort="firstName">Student Name <span class="sort-indicator">↕</span></th>
+              <th class="sortable" data-sort="email">Email <span class="sort-indicator">↕</span></th>
+              <th>Phone</th>
+              <th class="sortable" data-sort="department">Department <span class="sort-indicator">↕</span></th>
+              <th class="sortable" data-sort="yearOfStudy">Year <span class="sort-indicator">↕</span></th>
+              <th>DOB</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentsTableBody">
+            <!-- Dynamic rows or skeleton loader rendered by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <div id="paginationInfo">Showing 0 to 0 of 0 students</div>
+        <div class="pagination-controls" id="paginationControls"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Add / Edit Student Modal -->
+  <div class="modal-backdrop" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 class="modal-title" id="studentModalTitle">Add New Student</h2>
+        <button class="modal-close" data-close-modal="studentModal" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <form id="studentForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="studentId">
+          
+          <div class="form-grid">
+            <div class="form-group col-span-2">
+              <label for="rollNumber" class="form-label required">Roll Number</label>
+              <input type="text" id="rollNumber" class="input" placeholder="e.g. CS2026001" required>
+              <div class="form-error" id="error_rollNumber"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="firstName" class="form-label required">First Name</label>
+              <input type="text" id="firstName" class="input" placeholder="e.g. Arjun" required>
+              <div class="form-error" id="error_firstName"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName" class="form-label required">Last Name</label>
+              <input type="text" id="lastName" class="input" placeholder="e.g. Kumar" required>
+              <div class="form-error" id="error_lastName"></div>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="email" class="form-label required">Email Address</label>
+              <input type="email" id="email" class="input" placeholder="arjun.kumar@university.edu" required>
+              <div class="form-error" id="error_email"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone (10 Digits)</label>
+              <input type="tel" id="phone" class="input" placeholder="9876543210" pattern="[0-9]{10}">
+              <div class="form-error" id="error_phone"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="department" class="form-label required">Department</label>
+              <select id="department" class="select" required>
+                <option value="">Select Department</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Business Administration">Business Administration</option>
+              </select>
+              <div class="form-error" id="error_department"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="yearOfStudy" class="form-label required">Year of Study</label>
+              <select id="yearOfStudy" class="select" required>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+              </select>
+              <div class="form-error" id="error_yearOfStudy"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="dateOfBirth" class="form-label">Date of Birth</label>
+              <input type="date" id="dateOfBirth" class="input">
+              <div class="form-error" id="error_dateOfBirth"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="studentModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-backdrop" id="deleteConfirmModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="deleteModalTitle">Confirm Deletion</h2>
+        <button class="modal-close" data-close-modal="deleteConfirmModal" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-secondary); line-height: 1.6;">
+          Are you sure you want to delete student <strong id="deleteTargetName"></strong>? This operation cannot be undone.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal="deleteConfirmModal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete Student</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="modal-backdrop" id="shortcutsModal" role="dialog" aria-modal="true" aria-labelledby="shortcutsModalTitle">
+    <div class="modal-dialog" style="max-width: 480px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="shortcutsModalTitle">Keyboard Shortcuts</h2>
+        <button class="modal-close" data-close-modal="shortcutsModal" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="shortcut-table">
+          <tbody>
+            <tr>
+              <td><span class="shortcut-key">/</span></td>
+              <td>Focus student search input</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-key">n</span></td>
+              <td>Open Add Student modal</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-key">d</span></td>
+              <td>Toggle Dark / Light mode</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-key">?</span></td>
+              <td>Open this shortcuts guide</td>
+            </tr>
+            <tr>
+              <td><span class="shortcut-key">Esc</span></td>
+              <td>Close active modal or mobile menu</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-close-modal="shortcutsModal">Got It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie consent banner" style="display: none;">
+    <div class="cookie-text">
+      🍪 We use cookies and local storage to enhance your browsing experience, remember your theme preference, and maintain secure session state. Read our <a href="faq.html#privacy">Privacy Note</a>.
+    </div>
+    <div class="cookie-actions">
+      <button class="btn btn-secondary btn-sm" id="cookieDeclineBtn">Decline</button>
+      <button class="btn btn-primary btn-sm" id="cookieAcceptBtn">Accept All</button>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTopBtn" aria-label="Scroll back to top" title="Back to top">
+    ↑
+  </button>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Student Management System. Built with Spring Boot 3 &amp; Vanilla JavaScript.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+# Compiled / build output
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven wrapper cache
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+*.log
+logs/
+
+# Environment / secrets
+.env
+*.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# H2 local DB data
+data/
+
+# Spring Boot DevTools restart
+.reloadtrigger

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System | Student Form</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="brand" aria-label="Student Management System Homepage">
+        <div class="brand-icon">🎓</div>
+        <span>SMS Portal</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Dashboard</a></li>
+          <li><a href="student-form.html" class="nav-link active">New Student</a></li>
+          <li><a href="faq.html" class="nav-link">FAQ & Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="themeToggleBtn" class="btn-icon" aria-label="Toggle dark mode" title="Toggle theme (Press 'd')">
+          🌙
+        </button>
+
+        <div id="authNavContainer">
+          <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+        </div>
+
+        <button class="mobile-nav-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div style="max-width: 720px; margin: 0 auto;">
+      
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="pageTitle">Register New Student</h1>
+          <p class="page-subtitle">Submit academic profile details to enroll a new student.</p>
+        </div>
+        <div>
+          <a href="index.html" class="btn btn-secondary">← Back to Directory</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <form id="standaloneStudentForm" style="padding: 1.5rem;" novalidate>
+          <input type="hidden" id="studentId">
+
+          <div class="form-grid">
+            <div class="form-group col-span-2">
+              <label for="rollNumber" class="form-label required">Roll Number</label>
+              <input type="text" id="rollNumber" class="input" placeholder="e.g. CS2026001" required>
+              <div class="form-error" id="error_rollNumber"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="firstName" class="form-label required">First Name</label>
+              <input type="text" id="firstName" class="input" placeholder="e.g. Priya" required>
+              <div class="form-error" id="error_firstName"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName" class="form-label required">Last Name</label>
+              <input type="text" id="lastName" class="input" placeholder="e.g. Sharma" required>
+              <div class="form-error" id="error_lastName"></div>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="email" class="form-label required">Email Address</label>
+              <input type="email" id="email" class="input" placeholder="priya.sharma@example.com" required>
+              <div class="form-error" id="error_email"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone (10 Digits)</label>
+              <input type="tel" id="phone" class="input" placeholder="9876543210" pattern="[0-9]{10}">
+              <div class="form-error" id="error_phone"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="department" class="form-label required">Department</label>
+              <select id="department" class="select" required>
+                <option value="">Select Department</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Business Administration">Business Administration</option>
+              </select>
+              <div class="form-error" id="error_department"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="yearOfStudy" class="form-label required">Year of Study</label>
+              <select id="yearOfStudy" class="select" required>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+              </select>
+              <div class="form-error" id="error_yearOfStudy"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="dateOfBirth" class="form-label">Date of Birth</label>
+              <input type="date" id="dateOfBirth" class="input">
+              <div class="form-error" id="error_dateOfBirth"></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <a href="index.html" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary" id="saveBtn">Submit Enrollment</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie consent banner" style="display: none;">
+    <div class="cookie-text">
+      🍪 We use cookies and local storage to enhance your browsing experience. Read our <a href="faq.html#privacy">Privacy Note</a>.
+    </div>
+    <div class="cookie-actions">
+      <button class="btn btn-secondary btn-sm" id="cookieDeclineBtn">Decline</button>
+      <button class="btn btn-primary btn-sm" id="cookieAcceptBtn">Accept All</button>
+    </div>
+  </div>
+
+  <button class="back-to-top" id="backToTopBtn" aria-label="Scroll back to top">↑</button>
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <footer class="footer">
+    <p>&copy; 2026 Student Management System. Built with Spring Boot 3 &amp; Vanilla JavaScript.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
